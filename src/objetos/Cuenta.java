@@ -1,17 +1,22 @@
 package objetos;
 
-public abstract class Cuenta {
+import objetos.excepciones.SaldoInsuficienteException;
+
+public abstract class Cuenta implements Vaciable{
 	
 	//Atributos
 	private int numero;
-	private float saldo;
+	protected float saldo;
+	private static int cantidadDeCuentas;
 	//1- Método constructor
 	//Es el primer método que se ejecuta cuando se crea un objeto
 	public Cuenta() {
+		cantidadDeCuentas ++;		
 		numero = 100;
 		saldo = 100; 
 	}
 	public Cuenta(int pNum, float pSal) {
+		cantidadDeCuentas++;
 		numero = pNum;
 		saldo = pSal;
 	}
@@ -36,16 +41,23 @@ public abstract class Cuenta {
 		saldo += pValor;
 	}
 	
-	public abstract void debitar (float pValor);
+	public static int getCantidadDeCuentas() {
+		return cantidadDeCuentas;
+	}
+	
+	public static void vaciarContador() {
+		cantidadDeCuentas = 0;
+	}
+	
+	public boolean isEmpty() {
+		return numero == 0 && saldo == 0;
+	}
+	
+	public abstract void debitar (float pValor) throws SaldoInsuficienteException;
 	
 	public boolean equals(Object obj) {
 		boolean bln = false;
 		if(obj instanceof Cuenta) {
-			//downcast
-			int i =134;
-			 //upcast es automatico
-			long l = i;
-			
 			Cuenta cue = (Cuenta) obj;
 			bln = numero == cue.getNumero() && saldo == cue.getSaldo();
 		}

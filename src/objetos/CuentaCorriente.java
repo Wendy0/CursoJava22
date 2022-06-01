@@ -1,24 +1,32 @@
 package objetos;
 
+import objetos.excepciones.SaldoInsuficienteException;
+
 public class CuentaCorriente extends Cuenta {
 	
 	private float descubierto;
 
 	public CuentaCorriente() {
 		super();
-		descubierto = 100;
+		descubierto = 1000;
 	}
 
 	public CuentaCorriente(int pNum, float pSal, float pDescubierto) {
 		super(pNum, pSal);
 		descubierto = pDescubierto;
 	}
-
+	
 	@Override
-	public void debitar(float pValor) {
-		if(pValor <= (getSaldo() + descubierto))
-			setSaldo(getNumero() - pValor);
-
+	public boolean isEmpty() {
+		return super.isEmpty() && descubierto == 0;
+	}
+	
+	@Override
+	public void debitar(float pValor) throws SaldoInsuficienteException {
+		if(pValor <= (saldo + descubierto))
+			saldo -= pValor;
+		else
+			throw new SaldoInsuficienteException("El saldo es insuficiente.");
 	}
 	
 	public float getDescubierto() {

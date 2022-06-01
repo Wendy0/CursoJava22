@@ -1,5 +1,7 @@
 package objetos;
 
+import objetos.excepciones.SaldoInsuficienteException;
+
 public class CajaDeAhorro extends Cuenta {
 
 	//Atributos
@@ -37,11 +39,18 @@ public class CajaDeAhorro extends Cuenta {
     	sb.append(interes);
     	return sb.toString();
 	}
+	
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && interes == 0;
+	}
 
 	@Override
-	public void debitar(float pValor) {
-		if(pValor < getSaldo())
-			setSaldo(getSaldo() - pValor);			
+	public void debitar(float pValor) throws SaldoInsuficienteException {
+		if(pValor <= saldo)
+			saldo-=pValor; 		
+		else
+			throw new SaldoInsuficienteException("El salgo es insuficidente");
 	}
 
 }

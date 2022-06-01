@@ -2,6 +2,11 @@ package objetos.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,17 +20,48 @@ public class CuentaTest {
 	Cuenta cueVacia;
 	Cuenta cueConParametros;
 	
-	Cuenta caVacia;
-	Cuenta caConParametros;
+	CajaDeAhorro caVacia;
+	CajaDeAhorro caConParametrios;
+	
+	CuentaCorriente ccVacia;
+	CuentaCorriente ccConParametros;
+	
+	List<Cuenta> listCuentas;
+	Set<Cuenta> setCuentas;
+
 	
 	@Before
 	public void setUp() throws Exception{
 		
-		cueVacia = new CuentaCorriente();         //Hay que crear tipo caja de ahorro y cuenta curriente
-		cueConParametros = new CuentaCorriente(200, 100.3f, 200.50f);
-		
+		//2- se crean los objetos
+		cueVacia = new CajaDeAhorro();
+		cueConParametros = new CajaDeAhorro(200, 200.50f, 2.3f);
+				
+		//cajas de ahorro
 		caVacia = new CajaDeAhorro();
-		caConParametros = new CajaDeAhorro(15, 150, 8.3f);
+		caConParametrios = new CajaDeAhorro(15, 150, 8.3f);
+		//una lista es ordered  , uno a continuacion del otro
+				
+		ccVacia = new CuentaCorriente();
+		ccConParametros = new CuentaCorriente(20,2000.50f, 3000);
+
+		
+		//Una lista es ordered (ordenado según se introduce)
+		listCuentas = new ArrayList<Cuenta>();
+		listCuentas.add(new CajaDeAhorro());
+		listCuentas.add(new CuentaCorriente());
+		listCuentas.add(new CajaDeAhorro(101, 1000, 3.3f));
+		listCuentas.add(new CuentaCorriente(202, 2000, 5000));
+		
+		//Unordered / se colocan sin orden
+		//Es única, no se pueden crear 2 elementos iguales. Utiliza para ello el equals
+		//y el hashcode.
+		setCuentas = new HashSet<Cuenta>();
+		setCuentas.add(new CajaDeAhorro());
+		setCuentas.add(new CuentaCorriente());
+		setCuentas.add(new CajaDeAhorro(101, 1000, 3.3f));
+		setCuentas.add(new CuentaCorriente(202, 2000, 5000));
+		
 	}
 	
 	@After
@@ -34,7 +70,7 @@ public class CuentaTest {
 		cueConParametros = null;
 		
 		caVacia = null;
-		caConParametros = null;
+		caConParametrios = null;
 	}
 	
 	@Test
@@ -49,13 +85,13 @@ public class CuentaTest {
 	
 	@Test
 	public void testEquals_true() {
-		Cuenta c1 = new CuentaCorriente();
+		Cuenta c1 = new CajaDeAhorro();
 		assertTrue(cueVacia.equals(c1));
 	}
 	
 	@Test
 	public void testEquals_false() {
-		Cuenta c1 = new CuentaCorriente(45,45.3f,60f);
+		Cuenta c1 = new CajaDeAhorro(45,45.3f,60f);
 		assertFalse(cueVacia.equals(c1));
 	}
 	
@@ -85,5 +121,27 @@ public class CuentaTest {
 	public void testCajaDeAhorroEquals_false() {
 		Cuenta ca1 = new CajaDeAhorro(1,1,3);
 		assertFalse(caVacia.equals(ca1));
+	}
+	
+	@Test
+	public void testListContains() {
+		System.out.println("cueVacia " + cueVacia);
+		System.out.println("La lista: ");
+		System.out.println(listCuentas);
+		assertTrue(listCuentas.contains(cueVacia));
+	}
+	
+	@Test
+	public void testListacontains_false() {
+		CajaDeAhorro ca = new CajaDeAhorro(123, 123, 123);
+		assertFalse(listCuentas.contains(ca));
+	}
+	
+	public void testListAdd_true() {
+		assertTrue(listCuentas.add(new CajaDeAhorro()));
+	}
+	
+	public void testSetAdd_false() {
+		assertFalse(setCuentas.add(new CajaDeAhorro()));
 	}
 }

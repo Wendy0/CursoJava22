@@ -35,12 +35,17 @@ public abstract class Cuenta {
 	public void acreditar(float pValor) {
 		saldo += pValor;
 	}
+	
 	public abstract void debitar (float pValor);
 	
 	public boolean equals(Object obj) {
 		boolean bln = false;
 		if(obj instanceof Cuenta) {
 			//downcast
+			int i =134;
+			 //upcast es automatico
+			long l = i;
+			
 			Cuenta cue = (Cuenta) obj;
 			bln = numero == cue.getNumero() && saldo == cue.getSaldo();
 		}
@@ -51,8 +56,12 @@ public abstract class Cuenta {
 		return numero + (int)saldo;
 	}
 	
-	public String tostring() {
-		String str = "numero = " + numero + ",saldo = " + saldo;
-		return null;
+	public String toString() {
+		StringBuilder sb = new StringBuilder("\nnumero=");
+		sb.append(numero);
+		sb.append(",saldo=");
+		sb.append(saldo);	
+		
+		return sb.toString();
 	}
 }

@@ -20,5 +20,35 @@ public class CuentaCorriente extends Cuenta {
 			setSaldo(getNumero() - pValor);
 
 	}
+	
+	public float getDescubierto() {
+		return descubierto;
+	}
+
+	public void setDescubierto(float descubierto) {
+		this.descubierto = descubierto;
+	}
+	
+	public boolean equals(Object obj){		
+		return super.equals(obj) 							&&
+				obj instanceof CuentaCorriente 				&&
+				descubierto == ((CuentaCorriente)obj).getDescubierto();
+		
+	}
+	public int hashCoded(){
+		return super.hashCode() + (int)descubierto;
+	}
+
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder(super.toString());
+    	sb.append(",descubierto=");
+    	sb.append(descubierto);
+    	return sb.toString();
+
+	}
+
+
+
 
 }

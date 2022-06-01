@@ -32,10 +32,10 @@ public class CajaDeAhorro extends Cuenta {
 	}
 	
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(",interes = ");
-		sb.append(interes);
-		return sb.toString();
+		StringBuilder sb = new StringBuilder(super.toString());
+    	sb.append(",interes=");
+    	sb.append(interes);
+    	return sb.toString();
 	}
 
 	@Override

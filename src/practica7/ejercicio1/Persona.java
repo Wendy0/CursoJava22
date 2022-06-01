@@ -49,9 +49,12 @@ public class Persona {
 	}
 	
 	public String toString() {
+		StringBuilder sb = new StringBuilder("\n apellido=");
+		sb.append(apellido);
+		sb.append(",nombre=");
+		sb.append(nombre);	
 		
-		String str = "Apellido = " + apellido + ",Nombre = " + nombre;
-		return null;
+		return sb.toString();
 	}
 	
 }

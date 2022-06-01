@@ -32,7 +32,7 @@ public class Profesor extends Persona {
 	}
 	
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(super.toString());
 		sb.append("Iosfa = ");
 		sb.append(iosfa);		
 		return null;

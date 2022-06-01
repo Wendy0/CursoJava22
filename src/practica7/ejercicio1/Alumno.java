@@ -35,7 +35,7 @@ public class Alumno extends Persona {
 	}
 	
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(super.toString());
 		sb.append("Legajo = ");
 		sb.append(legajo);		
 		return null;
